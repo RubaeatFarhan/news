@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberCracker News — Cybersecurity News in Bangladesh</title>
+  <meta name="description" content="CyberCracker News covers cybersecurity news, incidents, and tutorials focused on Bangladesh. Malware, phishing, government advisories, and community discussion." />
+  <meta name="theme-color" content="#0b1220" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji']
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(255,255,255,.06), 0 16px 48px rgba(0,0,0,.5)',
+            soft: '0 1px 0 rgba(255,255,255,.06), 0 12px 32px rgba(0,0,0,.45)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root{
+      --bg0:#070b14;
+      --bg1:#0b1220;
+      --card:#0f1a2e;
+      --line: rgba(255,255,255,.08);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --brand1:#4f46e5;
+      --brand2:#06b6d4;
+      --brand3:#a855f7;
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+    }
+
+    html, body {
+      height: 100%;
+      background: radial-gradient(1200px 600px at 15% 0%, rgba(79,70,229,.25), transparent 60%),
+                  radial-gradient(900px 500px at 85% 5%, rgba(6,182,212,.22), transparent 55%),
+                  radial-gradient(800px 600px at 50% 120%, rgba(168,85,247,.18), transparent 50%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: rgba(255,255,255,.92);
+      scroll-behavior: smooth;
+    }
+
+    /* Subtle grid */
+    .grid-bg{
+      position: relative;
+      isolation: isolate;
+    }
+    .grid-bg::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(80% 60% at 50% 30%, rgba(0,0,0,1), rgba(0,0,0,0));
+      opacity:.25;
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    /* Glass card */
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* Fancy gradient border */
+    .grad-border{
+      position: relative;
+      border-radius: 16px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(79,70,229,.85), rgba(6,182,212,.65), rgba(168,85,247,.7));
+    }
+    .grad-border > .inner{
+      border-radius: 15px;
+      background: linear-gradient(180deg, rgba(15,26,46,.9), rgba(12,18,32,.9));
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.5rem;
+      padding: .7rem 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+      white-space: nowrap;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(79,70,229,1), rgba(6,182,212,1));
+      box-shadow: 0 10px 28px rgba(79,70,229,.28), 0 10px 30px rgba(6,182,212,.18);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .btn-primary:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(79,70,229,.32), 0 14px 34px rgba(6,182,212,.22);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+    .btn-ghost:hover{
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.14);
+      transform: translateY(-1px);
+    }
+
+    /* Inputs */
+    .input{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.92);
+      border-radius: 12px;
+      padding: .75rem .9rem;
+      outline: none;
+      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+      width: 100%;
+    }
+    .input:focus{
+      border-color: rgba(6,182,212,.65);
+      box-shadow: 0 0 0 4px rgba(6,182,212,.16);
+      background: rgba(255,255,255,.06);
+    }
+
+    /* Chips */
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      padding:.4rem .65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+      font-weight: 700;
+      font-size: .82rem;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+      cursor: pointer;
+    }
+    .chip:hover{ background: rgba(255,255,255,.07); transform: translateY(-1px); }
+    .chip[aria-pressed="true"]{
+      background: linear-gradient(135deg, rgba(79,70,229,.28), rgba(6,182,212,.18));
+      border-color: rgba(6,182,212,.55);
+    }
+
+    /* Article card hover */
+    .card-hover{
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .card-hover:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 18px 44px rgba(0,0,0,.48);
+      border-color: rgba(255,255,255,.14);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar{ width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.10); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover{ background: rgba(255,255,255,.16); }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+
+    /* Modal animation */
+    .fade-in { animation: fadeIn .18s ease-out both; }
+    @keyframes fadeIn { from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
+
+    /* Tooltip */
+    .tip{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: min(360px, 85vw);
+      background: rgba(10,16,30,.95);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.6);
+      display: none;
+      z-index: 50;
+    }
+    .tip[data-open="true"]{ display:block; }
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: .8rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: .08rem .35rem;
+      border-radius: 8px;
+      color: rgba(255,255,255,.86);
+    }
+
+    /* Toast */
+    .toast-wrap{
+      position: fixed;
+      inset: auto 16px 16px auto;
+      display: grid;
+      gap: 10px;
+      z-index: 9999;
+      pointer-events:none;
+    }
+    .toast{
+      pointer-events:auto;
+      border-radius: 14px;
+      padding: 12px 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(15,26,46,.92);
+      box-shadow: 0 16px 44px rgba(0,0,0,.55);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      max-width: min(420px, calc(100vw - 32px));
+    }
+    .toast .dot{
+      width: 10px; height:10px; border-radius: 999px; margin-top: 4px;
+    }
+    .toast .x{
+      margin-left:auto;
+      opacity:.8;
+      border-radius: 10px;
+      padding: 6px 8px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .toast .x:hover{ background: rgba(255,255,255,.07); }
+
+    /* Clamp */
+    .clamp-2{
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient: vertical; overflow:hidden;
+    }
+    .clamp-3{
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient: vertical; overflow:hidden;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <a href="#content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-white focus:text-black">Skip to content</a>
+
+  <!-- Top Nav -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-[rgba(7,11,20,.55)] backdrop-blur-xl">
+    <div class="mx-auto max-w-7xl px-4 py-3">
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <button id="mobileMenuBtn" class="btn btn-ghost md:hidden" aria-label="Open menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+
+          <a href="#" class="flex items-center gap-3 group">
+            <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-cyan-400 to-fuchsia-500 p-[1px] shadow-glow">
+              <div class="h-full w-full rounded-2xl bg-[#0a1020] grid place-items-center border border-white/10">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9.5 12l1.7 1.7 3.8-3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="leading-tight">
+              <div class="text-base font-extrabold tracking-tight">CyberCracker News</div>
+              <div class="text-xs text-white/60 -mt-0.5">Cybersecurity in Bangladesh</div>
+            </div>
+          </a>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-2">
+          <a class="btn btn-ghost" href="#news">News</a>
+          <a class="btn btn-ghost" href="#tutorials">Tutorials</a>
+          <a class="btn btn-ghost" href="#community">Community</a>
+          <a class="btn btn-ghost" href="#newsletter">Newsletter</a>
+          <button id="tipsBtn" class="btn btn-ghost relative" aria-label="Keyboard shortcuts">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 22a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4 6l2.2 1.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+              <path d="M20 6l-2.2 1.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+            </svg>
+            Tips
+            <div id="tipsPanel" class="tip" role="dialog" aria-label="Tips panel">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <div class="font-extrabold">Quick shortcuts</div>
+                  <div class="text-sm text-white/70 mt-1">
+                    Press <span class="kbd">/</span> to focus search, <span class="kbd">N</span> to jump to News, <span class="kbd">T</span> Tutorials, <span class="kbd">C</span> Community.
+                  </div>
+                </div>
+                <button id="tipsClose" class="btn btn-ghost !py-2 !px-2" aria-label="Close tips">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="mt-3 text-xs text-white/55">
+                Demo site: content is sample data. Comments/newsletters store locally in your browser.
+              </div>
+            </div>
+          </button>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button id="themeBtn" class="btn btn-ghost" aria-label="Toggle contrast mode">
+            <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 3a7 7 0 1 0 7 7c0-2.9-1.75-5.4-4.25-6.5A8.5 8.5 0 0 1 12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+            </svg>
+            <span class="hidden sm:inline">Contrast</span>
+          </button>
+          <button id="openSubscribe" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16v10H4V7Z" stroke="currentColor" stroke-width="2" />
+              <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Subscribe
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="mt-3 hidden md:hidden">
+        <div class="glass rounded-2xl p-3 border border-white/10">
+          <div class="grid gap-2">
+            <a class="btn btn-ghost justify-start" href="#news" data-close-mobile>News</a>
+            <a class="btn btn-ghost justify-start" href="#tutorials" data-close-mobile>Tutorials</a>
+            <a class="btn btn-ghost justify-start" href="#community" data-close-mobile>Community</a>
+            <a class="btn btn-ghost justify-start" href="#newsletter" data-close-mobile>Newsletter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="grid-bg">
+    <div class="mx-auto max-w-7xl px-4 pt-10 pb-8 md:pt-14 md:pb-10">
+      <div class="grid lg:grid-cols-[1.2fr_.8fr] gap-6 items-start">
+        <div class="grad-border shadow-glow">
+          <div class="inner p-5 sm:p-7">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="chip cursor-default" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                Daily Cyber Updates
+              </span>
+              <span class="chip cursor-default" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-indigo-400"></span>
+                Bangladesh Focus
+              </span>
+              <span class="chip cursor-default" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-fuchsia-400"></span>
+                Tutorials + Community
+              </span>
+            </div>
+
+            <h1 class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.05]">
+              CyberCracker News: <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-300 to-fuchsia-400">Bangladesh cybersecurity</span> —
+              fast, clear, and actionable.
+            </h1>
+            <p class="mt-4 text-white/75 text-base sm:text-lg leading-relaxed">
+              Stay ahead of malware campaigns, phishing waves, government advisories, and real-world incidents impacting people and organizations in Bangladesh.
+              Use threat levels to prioritize what matters today.
+            </p>
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-3">
+              <a href="#news" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 4h12v16H6V4Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9 8h6M9 12h6M9 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Browse Today’s News
+              </a>
+              <button id="openIncident" class="btn btn-ghost">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 9v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M10.3 4.7 3.7 18.1c-.6 1.2.2 2.6 1.6 2.6h13.4c1.4 0 2.2-1.4 1.6-2.6L13.7 4.7c-.7-1.4-2.7-1.4-3.4 0Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Report a Tip (Demo)
+              </button>
+            </div>
+
+            <div class="mt-6 grid sm:grid-cols-3 gap-3">
+              <div class="glass rounded-2xl p-4 border border-white/10 card-hover">
+                <div class="text-xs text-white/60">Trending Category</div>
+                <div class="mt-1 font-extrabold">Phishing</div>
+                <div class="mt-2 text-sm text-white/70">Bank & mobile-wallet scams are rising this week.</div>
+              </div>
+              <div class="glass rounded-2xl p-4 border border-white/10 card-hover">
+                <div class="text-xs text-white/60">Most Discussed</div>
+                <div class="mt-1 font-extrabold">Govt Advisories</div>
+                <div class="mt-2 text-sm text-white/70">New guidance on account security & reporting.</div>
+              </div>
+              <div class="glass rounded-2xl p-4 border border-white/10 card-hover">
+                <div class="text-xs text-white/60">New Tutorial</div>
+                <div class="mt-1 font-extrabold">MFA Checklist</div>
+                <div class="mt-2 text-sm text-white/70">Harden accounts in under 10 minutes.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Threat level + quick actions -->
+        <aside class="space-y-4">
+          <div class="glass rounded-2xl border border-white/10 p-5 shadow-soft">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm text-white/65">Bangladesh Threat Level</div>
+                <div class="mt-1 text-xl font-extrabold tracking-tight">Today’s Cyber Pulse</div>
+              </div>
+              <span id="threatBadge" class="chip cursor-default" aria-pressed="false">
+                <span id="threatDot" class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                <span id="threatLabel">Low</span>
+              </span>
+            </div>
+
+            <div class="mt-4">
+              <div class="flex items-center justify-between text-xs text-white/60">
+                <span>Low</span><span>Elevated</span><span>Critical</span>
+              </div>
+              <div class="mt-2 h-3 rounded-full bg-white/5 border border-white/10 overflow-hidden">
+                <div id="threatBar" class="h-full w-[22%] bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-400"></div>
+              </div>
+              <div class="mt-3 text-sm text-white/70 leading-relaxed">
+                <span class="font-bold text-white/90">Recommended:</span>
+                <span id="threatAdvice">Maintain updates, review suspicious emails, and enable MFA.</span>
+              </div>
+
+              <div class="mt-4 flex gap-2">
+                <button id="threatDown" class="btn btn-ghost w-full" aria-label="Decrease threat">- Lower</button>
+                <button id="threatUp" class="btn btn-primary w-full" aria-label="Increase threat">+ Raise</button>
+              </div>
+              <div class="mt-2 text-xs text-white/50">For newsroom demo: adjust based on ongoing incidents.</div>
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl border border-white/10 p-5 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm text-white/65">Quick Filter</div>
+                <div class="mt-1 font-extrabold">Categories</div>
+              </div>
+              <button id="resetFilters" class="btn btn-ghost !py-2 !px-3 text-sm">Reset</button>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button class="chip" data-category="Malware" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-purple-400"></span> Malware
+              </button>
+              <button class="chip" data-category="Phishing" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-amber-400"></span> Phishing
+              </button>
+              <button class="chip" data-category="Govt" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-emerald-400"></span> Govt
+              </button>
+              <button class="chip" data-category="Data Breach" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-rose-400"></span> Data Breach
+              </button>
+              <button class="chip" data-category="Awareness" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-cyan-400"></span> Awareness
+              </button>
+            </div>
+
+            <div class="mt-4">
+              <label class="text-sm font-bold text-white/85" for="search">Search news</label>
+              <div class="mt-2 flex gap-2">
+                <div class="relative w-full">
+                  <input id="search" class="input pr-10" placeholder="Search: e.g., bKash, ransomware, NID, DDoS..." />
+                  <div class="absolute right-3 top-1/2 -translate-y-1/2 text-white/45 text-sm">/</div>
+                </div>
+                <button id="clearSearch" class="btn btn-ghost" aria-label="Clear search">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="mt-2 text-xs text-white/55">Tip: Search matches title, summary, and tags.</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main id="content">
+    <!-- News -->
+    <section id="news" class="mx-auto max-w-7xl px-4 pt-6 pb-10">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <div class="text-white/60 text-sm">📰 News Section (daily updates)</div>
+          <h2 class="mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight">Latest Cyber News</h2>
+          <p class="mt-2 text-white/70 max-w-2xl">
+            Curated headlines and explainers focused on Bangladesh—what happened, what it means, and what to do next.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="chip cursor-default" aria-pressed="false">
+            <span class="h-2 w-2 rounded-full bg-white/60"></span>
+            <span id="resultsCount">0</span> results
+          </div>
+          <select id="sortSelect" class="input !py-2 !px-3 !rounded-xl w-auto">
+            <option value="newest">Sort: Newest</option>
+            <option value="threat">Sort: Highest Threat</option>
+            <option value="popular">Sort: Most Discussed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-6 grid lg:grid-cols-[1fr_.55fr] gap-5">
+        <!-- Articles grid -->
+        <div>
+          <div id="articlesGrid" class="grid sm:grid-cols-2 gap-4"></div>
+
+          <div class="mt-5 flex items-center justify-between">
+            <div class="text-sm text-white/55">
+              Showing <span id="showingRange" class="font-bold text-white/85">—</span>
+            </div>
+            <div class="flex gap-2">
+              <button id="prevPage" class="btn btn-ghost">Prev</button>
+              <button id="nextPage" class="btn btn-primary">Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editor's Desk -->
+        <aside class="space-y-4">
+          <div class="glass rounded-2xl border border-white/10 p-5 shadow-soft">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-sm text-white/65">Editor’s Desk</div>
+                <div class="mt-1 font-extrabold text-lg">What to watch today</div>
+              </div>
+              <span class="chip cursor-default" aria-pressed="false">
+                <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                Briefing
+              </span>
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-white/75">
+              <li class="flex gap-3">
+                <span class="mt-1 h-2 w-2 rounded-full bg-cyan-400 flex-none"></span>
+                If you see “account verification” SMS links, assume phishing—verify through official apps only.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-1 h-2 w-2 rounded-full bg-indigo-400 flex-none"></span>
+                Patch high-risk browser and VPN updates on endpoints used for remote work.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-1 h-2 w-2 rounded-full bg-fuchsia-400 flex-none"></span>
+                Backups: test restore. Attacks often target shared drives first.
+              </li>
+            </ul>
+            <div class="mt-4 flex gap-2">
+              <a href="#tutorials" class="btn btn-ghost w-full">Get Guides</a>
+              <button id="openSubscribe2" class="btn btn-primary w-full">Get Alerts</button>
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl border border-white/10 p-5 shadow-soft">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-sm text-white/65">Threat Map (Mini)</div>
+                <div class="mt-1 font-extrabold text-lg">Top signals</div>
+              </div>
+              <button id="refreshSignals" class="btn btn-ghost !py-2 !px-3 text-sm">Refresh</button>
+            </div>
+            <div id="signals" class="mt-4 grid gap-3"></div>
+            <div class="mt-3 text-xs text-white/55">Signals are illustrative for the demo.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Tutorials / Blog -->
+    <section id="tutorials" class="mx-auto max-w-7xl px-4 pt-2 pb-12">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <div class="text-white/60 text-sm">🧑‍💻 Blog + Tutorials</div>
+          <h2 class="mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight">Learn & Defend</h2>
+          <p class="mt-2 text-white/70 max-w-2xl">
+            Step-by-step guides for individuals, students, and teams in Bangladesh—focused on practical wins.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <button id="openNewTutorial" class="btn btn-ghost">Suggest Tutorial</button>
+          <a href="#newsletter" class="btn btn-primary">Subscribe</a>
+        </div>
+      </div>
+
+      <div id="tutorialGrid" class="mt-6 grid md:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- Community -->
+    <section id="community" class="mx-auto max-w-7xl px-4 pt-2 pb-14">
+      <div class="grad-border">
+        <div class="inner p-5 sm:p-7">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+            <div class="max-w-2xl">
+              <div class="text-white/60 text-sm">💬 Community / Comment system</div>
+              <h2 class="mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight">Discuss safely. Share responsibly.</h2>
+              <p class="mt-2 text-white/70 leading-relaxed">
+                Ask questions, add context, and share mitigations. Avoid posting sensitive personal data.
+                This demo stores comments locally in your browser (no backend).
+              </p>
+
+              <div class="mt-4 grid sm:grid-cols-3 gap-3">
+                <div class="glass rounded-2xl border border-white/10 p-4">
+                  <div class="text-xs text-white/60">Community rule</div>
+                  <div class="mt-1 font-extrabold">No doxxing</div>
+                  <div class="mt-2 text-sm text-white/70">Remove names, numbers, and IDs.</div>
+                </div>
+                <div class="glass rounded-2xl border border-white/10 p-4">
+                  <div class="text-xs text-white/60">Community rule</div>
+                  <div class="mt-1 font-extrabold">Verify sources</div>
+                  <div class="mt-2 text-sm text-white/70">Link advisories where possible.</div>
+                </div>
+                <div class="glass rounded-2xl border border-white/10 p-4">
+                  <div class="text-xs text-white/60">Community rule</div>
+                  <div class="mt-1 font-extrabold">Be helpful</div>
+                  <div class="mt-2 text-sm text-white/70">Share steps, not panic.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full lg:max-w-md">
+              <div class="glass rounded-2xl border border-white/10 p-5 shadow-soft">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-sm text-white/65">Start a thread</div>
+                    <div class="mt-1 font-extrabold">Post a comment</div>
+                  </div>
+                  <span class="chip cursor-default" aria-pressed="false">
+                    <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                    Local demo
+                  </span>
+                </div>
+
+                <form id="commentForm" class="mt-4 grid gap-3">
+                  <div>
+                    <label class="text-sm font-bold text-white/85" for="commentName">Name</label>
+                    <input id="commentName" class="input mt-2" placeholder="e.g., Farhan / TeamBlue" maxlength="40" required />
+                  </div>
+                  <div>
+                    <label class="text-sm font-bold text-white/85" for="commentTopic">Topic</label>
+                    <select id="commentTopic" class="input mt-2">
+                      <option value="General">General</option>
+                      <option value="Malware">Malware</option>
+                      <option value="Phishing">Phishing</option>
+                      <option value="Govt">Govt</option>
+                      <option value="Tutorials">Tutorials</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="text-sm font-bold text-white/85" for="commentText">Comment</label>
+                    <textarea id="commentText" class="input mt-2 min-h-[110px]" placeholder="Share observations, mitigation steps, links (no personal info)..." maxlength="600" required></textarea>
+                    <div class="mt-1 text-xs text-white/55"><span id="commentCount">0</span>/600</div>
+                  </div>
+                  <div class="grid sm:grid-cols-2 gap-2">
+                    <button class="btn btn-primary w-full" type="submit">Post</button>
+                    <button id="clearComments" class="btn btn-ghost w-full" type="button">Clear (Local)</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="mt-4 glass rounded-2xl border border-white/10 p-5 shadow-soft">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <div class="text-sm text-white/65">Threads</div>
+                    <div class="mt-1 font-extrabold">Latest community posts</div>
+                  </div>
+                  <select id="commentFilter" class="input !py-2 !px-3 !rounded-xl w-auto">
+                    <option value="All">All</option>
+                    <option value="General">General</option>
+                    <option value="Malware">Malware</option>
+                    <option value="Phishing">Phishing</option>
+                    <option value="Govt">Govt</option>
+                    <option value="Tutorials">Tutorials</option>
+                  </select>
+                </div>
+                <div id="commentList" class="mt-4 grid gap-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section id="newsletter" class="mx-auto max-w-7xl px-4 pb-16">
+      <div class="glass rounded-3xl border border-white/10 p-6 sm:p-8 shadow-soft">
+        <div class="grid lg:grid-cols-[1fr_.9fr] gap-6 items-start">
+          <div>
+            <div class="text-white/60 text-sm">📧 Newsletter subscription</div>
+            <h2 class="mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight">Get CyberCracker alerts in your inbox</h2>
+            <p class="mt-2 text-white/70 leading-relaxed">
+              Weekly roundup + urgent incident alerts. Choose categories and a preferred alert threshold.
+              (Demo: saved locally)
+            </p>
+
+            <div class="mt-5 grid sm:grid-cols-3 gap-3">
+              <div class="glass rounded-2xl border border-white/10 p-4">
+                <div class="text-xs text-white/60">Includes</div>
+                <div class="mt-1 font-extrabold">Top incidents</div>
+                <div class="mt-2 text-sm text-white/70">Fast summary + key actions.</div>
+              </div>
+              <div class="glass rounded-2xl border border-white/10 p-4">
+                <div class="text-xs text-white/60">Includes</div>
+                <div class="mt-1 font-extrabold">Guides</div>
+                <div class="mt-2 text-sm text-white/70">Practical tutorials & checklists.</div>
+              </div>
+              <div class="glass rounded-2xl border border-white/10 p-4">
+                <div class="text-xs text-white/60">Includes</div>
+                <div class="mt-1 font-extrabold">Advisories</div>
+                <div class="mt-2 text-sm text-white/70">Govt & vendor announcements.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grad-border">
+            <div class="inner p-5 sm:p-6">
+              <form id="newsletterForm" class="grid gap-4">
+                <div>
+                  <label class="text-sm font-bold text-white/85" for="email">Email</label>
+                  <input id="email" class="input mt-2" type="email" placeholder="you@example.com" required />
+                </div>
+
+                <fieldset class="grid gap-2">
+                  <legend class="text-sm font-bold text-white/85">Topics</legend>
+                  <div class="grid sm:grid-cols-2 gap-2">
+                    <label class="glass rounded-xl border border-white/10 p-3 flex items-center gap-3 cursor-pointer">
+                      <input class="accent-cyan-400" type="checkbox" name="topics" value="Malware" checked>
+                      <div>
+                        <div class="font-extrabold">Malware</div>
+                        <div class="text-xs text-white/60">Ransomware, trojans, loaders</div>
+                      </div>
+                    </label>
+                    <label class="glass rounded-xl border border-white/10 p-3 flex items-center gap-3 cursor-pointer">
+                      <input class="accent-cyan-400" type="checkbox" name="topics" value="Phishing" checked>
+                      <div>
+                        <div class="font-extrabold">Phishing</div>
+                        <div class="text-xs text-white/60">SMS, email, social scams</div>
+                      </div>
+                    </label>
+                    <label class="glass rounded-xl border border-white/10 p-3 flex items-center gap-3 cursor-pointer">
+                      <input class="accent-cyan-400" type="checkbox" name="topics" value="Govt" checked>
+                      <div>
+                        <div class="font-extrabold">Govt</div>
+                        <div class="text-xs text-white/60">Advisories & policy updates</div>
+                      </div>
+                    </label>
+                    <label class="glass rounded-xl border border-white/10 p-3 flex items-center gap-3 cursor-pointer">
+                      <input class="accent-cyan-400" type="checkbox" name="topics" value="Tutorials" checked>
+                      <div>
+                        <div class="font-extrabold">Tutorials</div>
+                        <div class="text-xs text-white/60">Hands-on learning</div>
+                      </div>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <div>
+                  <label class="text-sm font-bold text-white/85" for="alertThreshold">Alert threshold</label>
+                  <div class="mt-2 flex items-center gap-3">
+                    <input id="alertThreshold" type="range" min="1" max="5" value="3" class="w-full">
+                    <div class="chip cursor-default" aria-pressed="false">
+                      <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                      <span id="alertThresholdLabel">3</span>/5
+                    </div>
+                  </div>
+                  <div class="mt-1 text-xs text-white/55">Only send urgent alerts when threat score ≥ threshold.</div>
+                </div>
+
+                <button class="btn btn-primary w-full" type="submit">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                  Subscribe
+                </button>
+
+                <div class="text-xs text-white/55">
+                  By subscribing, you agree to receive emails from CyberCracker News. Unsubscribe anytime.
+                </div>
+
+                <div id="subscriberCard" class="hidden glass rounded-2xl border border-white/10 p-4">
+                  <div class="text-sm font-extrabold">Saved subscription (local)</div>
+                  <div class="mt-1 text-sm text-white/70">
+                    Email: <span id="savedEmail" class="text-white/90 font-bold"></span>
+                  </div>
+                  <div class="mt-1 text-sm text-white/70">
+                    Topics: <span id="savedTopics" class="text-white/90 font-bold"></span>
+                  </div>
+                  <div class="mt-1 text-sm text-white/70">
+                    Threshold: <span id="savedThreshold" class="text-white/90 font-bold"></span>/5
+                  </div>
+                  <div class="mt-3 flex gap-2">
+                    <button id="unsubscribeBtn" type="button" class="btn btn-ghost w-full">Remove</button>
+                    <button id="sendTestAlert" type="button" class="btn btn-primary w-full">Test alert</button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 py-10">
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+        <div>
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-cyan-400 to-fuchsia-500 p-[1px] shadow-glow">
+              <div class="h-full w-full rounded-2xl bg-[#0a1020] grid place-items-center border border-white/10">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M9.5 12l1.7 1.7 3.8-3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <div class="font-extrabold">CyberCracker News</div>
+              <div class="text-xs text-white/60">Cybersecurity news in Bangladesh</div>
+            </div>
+          </div>
+          <p class="mt-3 text-sm text-white/65 leading-relaxed">
+            Production-ready front-end demo with search, categories, threat indicator, newsletter, tutorials, and a local comment system.
+          </p>
+        </div>
+
+        <div class="md:justify-self-center">
+          <div class="font-extrabold">Sections</div>
+          <div class="mt-3 grid gap-2 text-sm">
+            <a class="text-white/70 hover:text-white transition" href="#news">News</a>
+            <a class="text-white/70 hover:text-white transition" href="#tutorials">Tutorials</a>
+            <a class="text-white/70 hover:text-white transition" href="#community">Community</a>
+            <a class="text-white/70 hover:text-white transition" href="#newsletter">Newsletter</a>
+          </div>
+        </div>
+
+        <div class="md:justify-self-end">
+          <div class="font-extrabold">Contact</div>
+          <div class="mt-3 text-sm text-white/70 grid gap-2">
+            <div class="flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+              Email: <span class="text-white/90 font-bold">editor@cybercracker.news</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-indigo-400"></span>
+              Tip line: <span class="text-white/90 font-bold">tips@cybercracker.news</span>
+            </div>
+            <div class="text-xs text-white/50 mt-2">
+              Demo only — replace with real endpoints and backend storage.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-white/55">
+        <div>© <span id="year"></span> CyberCracker News. All rights reserved.</div>
+        <div class="flex items-center gap-3">
+          <button id="backToTop" class="btn btn-ghost !py-2 !px-3 text-xs">Back to top</button>
+          <span class="text-white/35">•</span>
+          <span>Built for modern browsers</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modals -->
+  <div id="modalOverlay" class="fixed inset-0 bg-black/60 hidden z-[999]">
+    <div class="min-h-full w-full flex items-end md:items-center justify-center p-4">
+      <div id="modal" class="fade-in w-full max-w-2xl rounded-3xl border border-white/12 bg-[rgba(12,18,32,.92)] backdrop-blur-xl shadow-glow overflow-hidden">
+        <div class="p-5 sm:p-6 border-b border-white/10 flex items-start justify-between gap-3">
+          <div>
+            <div id="modalKicker" class="text-sm text-white/65">Modal</div>
+            <div id="modalTitle" class="mt-1 text-xl sm:text-2xl font-extrabold tracking-tight">Title</div>
+          </div>
+          <button id="modalClose" class="btn btn-ghost !py-2 !px-2" aria-label="Close modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div id="modalBody" class="p-5 sm:p-6"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toastWrap" class="toast-wrap" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    // ---------------------------
+    // Data
+    // ---------------------------
+    const state = {
+      selectedCategories: new Set(),
+      search: '',
+      sort: 'newest',
+      page: 1,
+      perPage: 6,
+      threat: { score: 2 }, // 1-5
+      contrast: false
+    };
+
+    const articles = [
+      {
+        id: 'ccn-2026-03-28-01',
+        title: 'Phishing wave targets Bangladeshi mobile-wallet users with “KYC update” links',
+        date: '2026-03-28',
+        category: 'Phishing',
+        threat: 4,
+        tags: ['bKash', 'Nagad', 'SMS', 'KYC', 'links'],
+        summary: 'Scammers are sending SMS messages urging users to “update KYC” and verify accounts. The links redirect to lookalike pages harvesting OTPs and PINs.',
+        bullets: [
+          'Do not click SMS links; open the official app directly',
+          'Enable app PIN + biometric lock; avoid sharing OTPs',
+          'Report suspicious numbers to your carrier and wallet support'
+        ],
+        reads: 3840,
+        comments: 18
+      },
+      {
+        id: 'ccn-2026-03-27-02',
+        title: 'Malware “DocDropper” spreads via fake job PDFs shared in Facebook groups',
+        date: '2026-03-27',
+        category: 'Malware',
+        threat: 5,
+        tags: ['Facebook', 'PDF', 'jobs', 'infostealer'],
+        summary: 'A new campaign uses “job circular” PDFs that prompt users to run a “viewer update,” installing an infostealer focused on browser passwords and cookies.',
+        bullets: [
+          'Block unknown executables; allow-list trusted installers only',
+          'Reset passwords and rotate session tokens if exposed',
+          'Use endpoint protection and browser safe-browsing features'
+        ],
+        reads: 5120,
+        comments: 27
+      },
+      {
+        id: 'ccn-2026-03-27-01',
+        title: 'Govt advisory: strengthen email security and reporting workflows for incidents',
+        date: '2026-03-27',
+        category: 'Govt',
+        threat: 3,
+        tags: ['advisory', 'reporting', 'email', 'MFA'],
+        summary: 'An updated guidance encourages rapid incident reporting, MFA rollout, and security awareness for handling suspicious attachments and links.',
+        bullets: [
+          'Deploy MFA across email and admin accounts first',
+          'Set up a dedicated reporting mailbox and response SOP',
+          'Run monthly phishing simulations and micro-trainings'
+        ],
+        reads: 2660,
+        comments: 11
+      },
+      {
+        id: 'ccn-2026-03-26-01',
+        title: 'Data breach rumors: how to verify leaks before sharing screenshots',
+        date: '2026-03-26',
+        category: 'Awareness',
+        threat: 2,
+        tags: ['verification', 'OSINT', 'rumors', 'leaks'],
+        summary: 'Screenshots and spreadsheets spread fast. Here’s a simple checklist to verify claims, protect victims, and avoid amplifying misinformation.',
+        bullets: [
+          'Cross-check domains, timestamps, and samples for authenticity',
+          'Avoid reposting personal data; blur and redact',
+          'Notify affected orgs privately with evidence and context'
+        ],
+        reads: 1980,
+        comments: 7
+      },
+      {
+        id: 'ccn-2026-03-25-01',
+        title: 'DDoS activity spikes against public-facing portals: what small teams can do today',
+        date: '2026-03-25',
+        category: 'Govt',
+        threat: 4,
+        tags: ['DDoS', 'WAF', 'rate limiting', 'availability'],
+        summary: 'Short bursts of traffic are disrupting services. A layered approach—WAF rules, caching, and rate limits—can reduce impact quickly.',
+        bullets: [
+          'Enable CDN caching and bot filtering',
+          'Rate limit login and search endpoints',
+          'Prepare a status page and fallback workflows'
+        ],
+        reads: 3220,
+        comments: 9
+      },
+      {
+        id: 'ccn-2026-03-24-01',
+        title: 'Malware basics: spotting “loader” behavior on Windows endpoints',
+        date: '2026-03-24',
+        category: 'Malware',
+        threat: 3,
+        tags: ['Windows', 'EDR', 'persistence', 'startup'],
+        summary: 'Loaders often arrive via crack software and “free tools.” Learn what persistence looks like and which logs to check first.',
+        bullets: [
+          'Audit startup tasks, scheduled tasks, and registry run keys',
+          'Check unusual PowerShell + network beacons',
+          'Isolate infected hosts and collect artifacts'
+        ],
+        reads: 1750,
+        comments: 6
+      },
+      {
+        id: 'ccn-2026-03-23-01',
+        title: 'Phishing: identifying lookalike domains used in Bangladesh-targeted scams',
+        date: '2026-03-23',
+        category: 'Phishing',
+        threat: 3,
+        tags: ['domains', 'typosquatting', 'email'],
+        summary: 'Attackers register domains that resemble banks, portals, and telcos. We show common tricks and how to confirm the real domain.',
+        bullets: [
+          'Use password managers to prevent autofill on fake domains',
+          'Verify TLS and URL spelling; beware of IDN homographs',
+          'Add domain monitoring for your brand'
+        ],
+        reads: 2140,
+        comments: 10
+      },
+      {
+        id: 'ccn-2026-03-22-01',
+        title: 'Incident response: a 30-minute checklist for small organizations',
+        date: '2026-03-22',
+        category: 'Awareness',
+        threat: 2,
+        tags: ['IR', 'checklist', 'backup', 'containment'],
+        summary: 'When something breaks, speed matters. Here’s a compact checklist to contain, preserve evidence, and communicate clearly.',
+        bullets: [
+          'Contain: isolate endpoints, rotate credentials',
+          'Preserve logs and suspicious files for analysis',
+          'Communicate: assign roles and a single status channel'
+        ],
+        reads: 1420,
+        comments: 4
+      }
+    ];
+
+    const tutorials = [
+      {
+        id:'tut-01',
+        title:'Secure your Gmail & Facebook with MFA (Bangla-friendly checklist)',
+        level:'Beginner',
+        time:'10–15 min',
+        tags:['MFA','Accounts','Checklist'],
+        summary:'Enable stronger sign-in for everyday accounts, lock down recovery options, and avoid OTP traps.'
+      },
+      {
+        id:'tut-02',
+        title:'Detect phishing SMS: 7 red flags seen in Bangladesh scams',
+        level:'Beginner',
+        time:'8 min',
+        tags:['Phishing','SMS','Awareness'],
+        summary:'A quick guide to spotting scam links, fake customer care numbers, and urgency tricks.'
+      },
+      {
+        id:'tut-03',
+        title:'Small office hardening: router, Wi‑Fi, and guest network setup',
+        level:'Intermediate',
+        time:'25–40 min',
+        tags:['WiFi','Router','SMB'],
+        summary:'Change defaults, disable risky services, and segment guests to reduce blast radius.'
+      },
+      {
+        id:'tut-04',
+        title:'Windows triage: what to collect before re-installing',
+        level:'Intermediate',
+        time:'20 min',
+        tags:['Windows','IR','Logs'],
+        summary:'Preserve evidence (safely) so you can learn what happened and prevent repeats.'
+      },
+      {
+        id:'tut-05',
+        title:'Password manager setup + emergency kit',
+        level:'Beginner',
+        time:'12 min',
+        tags:['Passwords','Habits','Recovery'],
+        summary:'Create strong unique passwords, store recovery codes, and reduce account takeovers.'
+      },
+      {
+        id:'tut-06',
+        title:'DNS filtering for families: blocking malware & adult content (optional)',
+        level:'Beginner',
+        time:'15 min',
+        tags:['DNS','Safety','Home'],
+        summary:'Simple DNS configuration options for safer browsing on phones and PCs.'
+      }
+    ];
+
+    // ---------------------------
+    // Helpers
+    // ---------------------------
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    function formatDate(iso){
+      const d = new Date(iso+'T00:00:00');
+      return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+    }
+
+    function scoreToThreat(score){
+      if(score <= 2) return { label:'Low', color:'bg-emerald-400', bar:'from-emerald-400 via-cyan-400 to-indigo-400' };
+      if(score === 3) return { label:'Elevated', color:'bg-amber-400', bar:'from-amber-400 via-orange-400 to-fuchsia-400' };
+      return { label:'Critical', color:'bg-rose-400', bar:'from-rose-500 via-fuchsia-500 to-indigo-500' };
+    }
+
+    function toast({title, message, tone='info'}){
+      const wrap = $('#toastWrap');
+      const t = document.createElement('div');
+      const dotColor = tone==='ok' ? 'var(--good)' : tone==='warn' ? 'var(--warn)' : tone==='bad' ? 'var(--bad)' : '#22d3ee';
+      t.className = 'toast fade-in';
+      t.innerHTML = `
+        <div class="dot" style="background:${dotColor}"></div>
+        <div>
+          <div class="font-extrabold">${escapeHtml(title)}</div>
+          <div class="text-sm text-white/70 mt-0.5">${escapeHtml(message)}</div>
+        </div>
+        <button class="x" aria-label="Dismiss notification">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      `;
+      wrap.appendChild(t);
+      const remove = () => { t.remove(); };
+      $('.x', t).addEventListener('click', remove);
+      setTimeout(remove, 5200);
+    }
+
+    function escapeHtml(s){
+      return (s ?? '').toString()
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;');
+    }
+
+    // ---------------------------
+    // Rendering: Articles
+    // ---------------------------
+    function getFilteredArticles(){
+      const q = state.search.trim().toLowerCase();
+      let list = articles.slice();
+
+      // category filter
+      if(state.selectedCategories.size){
+        list = list.filter(a => state.selectedCategories.has(a.category));
+      }
+
+      // search filter
+      if(q){
+        list = list.filter(a => {
+          const hay = `${a.title} ${a.summary} ${(a.tags||[]).join(' ')}`.toLowerCase();
+          return hay.includes(q);
+        });
+      }
+
+      // sort
+      if(state.sort === 'newest'){
+        list.sort((a,b) => new Date(b.date) - new Date(a.date));
+      } else if(state.sort === 'threat'){
+        list.sort((a,b) => (b.threat - a.threat) || (new Date(b.date) - new Date(a.date)));
+      } else if(state.sort === 'popular'){
+        list.sort((a,b) => (b.comments - a.comments) || (b.reads - a.reads));
+      }
+
+      return list;
+    }
+
+    function threatPill(score){
+      const t = scoreToThreat(score);
+      const tone = t.label === 'Low' ? 'bg-emerald-400' : t.label === 'Elevated' ? 'bg-amber-400' : 'bg-rose-400';
+      const ring = t.label === 'Low' ? 'border-emerald-400/30' : t.label === 'Elevated' ? 'border-amber-400/30' : 'border-rose-400/30';
+      return `
+        <span class="chip cursor-default !text-xs !font-extrabold ${ring}" aria-pressed="false">
+          <span class="h-2 w-2 rounded-full ${tone}"></span>
+          Threat: ${t.label} (${score}/5)
+        </span>
+      `;
+    }
+
+    function categoryBadge(cat){
+      const map = {
+        'Malware': 'from-purple-500/35 to-fuchsia-500/20 border-purple-400/30',
+        'Phishing': 'from-amber-500/35 to-orange-500/20 border-amber-400/30',
+        'Govt': 'from-emerald-500/35 to-cyan-500/20 border-emerald-400/30',
+        'Data Breach': 'from-rose-500/35 to-fuchsia-500/20 border-rose-400/30',
+        'Awareness': 'from-cyan-500/30 to-indigo-500/20 border-cyan-400/30'
+      };
+      const cls = map[cat] || 'from-white/10 to-white/5 border-white/15';
+      return `
+        <span class="chip cursor-default !text-xs bg-gradient-to-r ${cls}" aria-pressed="false">
+          <span class="h-2 w-2 rounded-full bg-white/70"></span>
+          ${escapeHtml(cat)}
+        </span>
+      `;
+    }
+
+    function renderArticles(){
+      const grid = $('#articlesGrid');
+      const list = getFilteredArticles();
+      const total = list.length;
+
+      // paginate
+      const maxPage = Math.max(1, Math.ceil(total / state.perPage));
+      state.page = Math.min(state.page, maxPage);
+
+      const start = (state.page - 1) * state.perPage;
+      const pageItems = list.slice(start, start + state.perPage);
+
+      $('#resultsCount').textContent = total.toString();
+      $('#prevPage').disabled = state.page === 1;
+      $('#nextPage').disabled = state.page === maxPage;
+      $('#prevPage').classList.toggle('opacity-50', state.page === 1);
+      $('#nextPage').classList.toggle('opacity-50', state.page === maxPage);
+
+      const rangeText = total === 0 ? '0 of 0' : `${start + 1}–${Math.min(start + state.perPage, total)} of ${total}`;
+      $('#showingRange').textContent = rangeText;
+
+      if(total === 0){
+        grid.innerHTML = `
+          <div class="sm:col-span-2 glass rounded-2xl border border-white/10 p-6">
+            <div class="text-lg font-extrabold">No matches found</div>
+            <div class="mt-1 text-sm text-white/70">Try clearing search or adjusting categories.</div>
+            <div class="mt-4 flex gap-2 flex-wrap">
+              <button class="btn btn-ghost" id="emptyClearSearch">Clear search</button>
+              <button class="btn btn-primary" id="emptyResetFilters">Reset filters</button>
+            </div>
+          </div>
+        `;
+        $('#emptyClearSearch')?.addEventListener('click', () => { state.search=''; $('#search').value=''; renderArticles(); });
+        $('#emptyResetFilters')?.addEventListener('click', () => { resetFilters(); renderArticles(); });
+        return;
+      }
+
+      grid.innerHTML = pageItems.map(a => `
+        <article class="glass rounded-2xl border border-white/10 p-5 card-hover" data-article-id="${escapeHtml(a.id)}">
+          <div class="flex flex-wrap items-center gap-2">
+            ${categoryBadge(a.category)}
+            ${threatPill(a.threat)}
+          </div>
+          <h3 class="mt-3 text-lg font-extrabold leading-snug">${escapeHtml(a.title)}</h3>
+          <p class="mt-2 text-sm text-white/72 clamp-3">${escapeHtml(a.summary)}</p>
+
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+            <div class="text-xs text-white/60 flex items-center gap-2">
+              <span>${formatDate(a.date)}</span>
+              <span class="text-white/30">•</span>
+              <span>${a.reads.toLocaleString()} reads</span>
+              <span class="text-white/30">•</span>
+              <span>${a.comments} comments</span>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn btn-ghost !py-2 !px-3 text-sm" data-open-article="${escapeHtml(a.id)}">Read</button>
+              <button class="btn btn-primary !py-2 !px-3 text-sm" data-discuss="${escapeHtml(a.id)}">Discuss</button>
+            </div>
+          </div>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+            ${(a.tags||[]).slice(0,4).map(t => `<span class="chip cursor-default !text-xs" aria-pressed="false">#${escapeHtml(t)}</span>`).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      $$('[data-open-article]').forEach(btn => btn.addEventListener('click', () => openArticle(btn.dataset.openArticle)));
+      $$('[data-discuss]').forEach(btn => btn.addEventListener('click', () => {
+        openArticle(btn.dataset.discuss, { focusCommunity: true });
+      }));
+    }
+
+    function openArticle(id, opts={}){
+      const a = articles.find(x => x.id === id);
+      if(!a) return;
+
+      openModal({
+        kicker: `${a.category} • ${formatDate(a.date)}`,
+        title: a.title,
+        body: `
+          <div class="flex flex-wrap items-center gap-2">
+            ${categoryBadge(a.category)}
+            ${threatPill(a.threat)}
+            <span class="chip cursor-default !text-xs" aria-pressed="false">
+              <span class="h-2 w-2 rounded-full bg-white/60"></span>
+              ${a.reads.toLocaleString()} reads
+            </span>
+            <span class="chip cursor-default !text-xs" aria-pressed="false">
+              <span class="h-2 w-2 rounded-full bg-white/60"></span>
+              ${a.comments} comments
+            </span>
+          </div>
+
+          <p class="mt-4 text-white/75 leading-relaxed">
+            ${escapeHtml(a.summary)}
+          </p>
+
+          <div class="mt-5 glass rounded-2xl border border-white/10 p-4">
+            <div class="font-extrabold">What you can do now</div>
+            <ul class="mt-3 space-y-2 text-sm text-white/75">
+              ${(a.bullets||[]).map(b => `
+                <li class="flex gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-cyan-400 flex-none"></span>
+                  <span>${escapeHtml(b)}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <div class="mt-5 flex flex-col sm:flex-row gap-2">
+            <button class="btn btn-primary w-full" id="modalDiscussBtn">
+              Go to Community
+            </button>
+            <button class="btn btn-ghost w-full" id="copyLinkBtn">
+              Copy link
+            </button>
+          </div>
+
+          <div class="mt-3 text-xs text-white/55">
+            Share responsibly: avoid sensitive personal data. Verify before reposting.
+          </div>
+        `
+      });
+
+      $('#modalDiscussBtn').addEventListener('click', () => {
+        closeModal();
+        setTimeout(() => {
+          location.hash = '#community';
+          $('#commentTopic').value = a.category === 'Awareness' ? 'General' : a.category;
+          $('#commentText').focus();
+        }, 30);
+      });
+
+      $('#copyLinkBtn').addEventListener('click', async () => {
+        const url = `${location.href.split('#')[0]}#news`;
+        try{
+          await navigator.clipboard.writeText(url);
+          toast({title:'Copied', message:'Link copied to clipboard.', tone:'ok'});
+        }catch(e){
+          toast({title:'Copy failed', message:'Clipboard permission not available in this environment.', tone:'warn'});
+        }
+      });
+
+      if(opts.focusCommunity){
+        // no-op: button already available
+      }
+    }
+
+    // ---------------------------
+    // Rendering: Tutorials
+    // ---------------------------
+    function renderTutorials(){
+      const grid = $('#tutorialGrid');
+      grid.innerHTML = tutorials.map(t => `
+        <article class="glass rounded-2xl border border-white/10 p-5 card-hover">
+          <div class="flex items-center justify-between gap-2">
+            <span class="chip cursor-default !text-xs" aria-pressed="false">
+              <span class="h-2 w-2 rounded-full bg-indigo-400"></span>
+              ${escapeHtml(t.level)}
+            </span>
+            <span class="chip cursor-default !text-xs" aria-pressed="false">
+              <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+              ${escapeHtml(t.time)}
+            </span>
+          </div>
+          <h3 class="mt-3 text-lg font-extrabold leading-snug">${escapeHtml(t.title)}</h3>
+          <p class="mt-2 text-sm text-white/72 clamp-3">${escapeHtml(t.summary)}</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            ${(t.tags||[]).map(tag => `<span class="chip cursor-default !text-xs" aria-pressed="false">#${escapeHtml(tag)}</span>`).join('')}
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="btn btn-ghost w-full !py-2" data-open-tutorial="${escapeHtml(t.id)}">Read</button>
+            <button class="btn btn-primary w-full !py-2" data-save-tutorial="${escapeHtml(t.id)}">Save</button>
+          </div>
+        </article>
+      `).join('');
+
+      $$('[data-open-tutorial]').forEach(b => b.addEventListener('click', () => openTutorial(b.dataset.openTutorial)));
+      $$('[data-save-tutorial]').forEach(b => b.addEventListener('click', () => saveTutorial(b.dataset.saveTutorial)));
+    }
+
+    function openTutorial(id){
+      const t = tutorials.find(x => x.id === id);
+      if(!t) return;
+
+      openModal({
+        kicker: `Tutorial • ${t.level} • ${t.time}`,
+        title: t.title,
+        body: `
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="chip cursor-default !text-xs" aria-pressed="false">
+              <span class="h-2 w-2 rounded-full bg-indigo-400"></span>${escapeHtml(t.level)}
+            </span>
+            <span class="chip cursor-default !text-xs" aria-pressed="false">
+              <span class="h-2 w-2 rounded-full bg-cyan-400"></span>${escapeHtml(t.time)}
+            </span>
+            ${(t.tags||[]).map(tag => `<span class="chip cursor-default !text-xs" aria-pressed="false">#${escapeHtml(tag)}</span>`).join('')}
+          </div>
+
+          <p class="mt-4 text-white/75 leading-relaxed">${escapeHtml(t.summary)}</p>
+
+          <div class="mt-5 glass rounded-2xl border border-white/10 p-4">
+            <div class="font-extrabold">Demo outline</div>
+            <ol class="mt-3 space-y-2 text-sm text-white/75 list-decimal list-inside">
+              <li>Identify your risk: account takeover, scam links, or device infection.</li>
+              <li>Apply the main control: MFA, password manager, updates, or network segmentation.</li>
+              <li>Verify: test login, recovery options, and alert settings.</li>
+              <li>Document: keep recovery codes in a safe place.</li>
+            </ol>
+            <div class="mt-3 text-xs text-white/55">Replace with your full editorial content.</div>
+          </div>
+
+          <div class="mt-5 flex gap-2 flex-col sm:flex-row">
+            <button class="btn btn-primary w-full" id="toNewsletterFromTutorial">Get similar tutorials</button>
+            <button class="btn btn-ghost w-full" id="toCommunityFromTutorial">Ask in community</button>
+          </div>
+        `
+      });
+
+      $('#toNewsletterFromTutorial').addEventListener('click', () => { closeModal(); setTimeout(()=> location.hash='#newsletter', 30); });
+      $('#toCommunityFromTutorial').addEventListener('click', () => { closeModal(); setTimeout(()=> { location.hash='#community'; $('#commentTopic').value='Tutorials'; $('#commentText').focus(); }, 30); });
+    }
+
+    function saveTutorial(id){
+      const key = 'ccn_saved_tutorials';
+      const cur = new Set(JSON.parse(localStorage.getItem(key) || '[]'));
+      if(cur.has(id)){
+        cur.delete(id);
+        localStorage.setItem(key, JSON.stringify(Array.from(cur)));
+        toast({title:'Removed', message:'Tutorial removed from saved list.', tone:'warn'});
+      }else{
+        cur.add(id);
+        localStorage.setItem(key, JSON.stringify(Array.from(cur)));
+        toast({title:'Saved', message:'Tutorial saved locally.', tone:'ok'});
+      }
+    }
+
+    // ---------------------------
+    // Threat indicator
+    // ---------------------------
+    function renderThreat(){
+      const score = state.threat.score;
+      const t = scoreToThreat(score);
+
+      $('#threatLabel').textContent = t.label;
+      $('#threatDot').className = `h-2 w-2 rounded-full ${t.color}`;
+      $('#threatBar').style.width = `${(score/5)*100}%`;
+      $('#threatBar').className = `h-full bg-gradient-to-r ${t.bar}`;
+
+      const advice = score <= 2
+        ? 'Maintain updates, review suspicious emails, and enable MFA.'
+        : score === 3
+          ? 'Increase monitoring, verify suspicious links, and brief staff on current scams.'
+          : 'Treat as incident-ready: rotate critical credentials, review logs, and prepare for containment.';
+      $('#threatAdvice').textContent = advice;
+
+      // Save
+      localStorage.setItem('ccn_threat_score', String(score));
+    }
+
+    // ---------------------------
+    // Signals mini panel
+    // ---------------------------
+    const signalTemplates = [
+      () => ({ label: 'Phishing SMS bursts', value: rand(30, 95), color: 'bg-amber-400' }),
+      () => ({ label: 'Malware hits (endpoint)', value: rand(10, 70), color: 'bg-fuchsia-400' }),
+      () => ({ label: 'Credential stuffing', value: rand(15, 85), color: 'bg-cyan-400' }),
+      () => ({ label: 'DDoS attempts', value: rand(5, 60), color: 'bg-indigo-400' }),
+      () => ({ label: 'Lookalike domains', value: rand(10, 80), color: 'bg-emerald-400' }),
+    ];
+
+    function rand(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+
+    function renderSignals(){
+      const box = $('#signals');
+      const items = signalTemplates
+        .map(fn => fn())
+        .sort((a,b) => b.value - a.value)
+        .slice(0,4);
+
+      box.innerHTML = items.map(s => `
+        <div class="glass rounded-2xl border border-white/10 p-4">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-extrabold">${escapeHtml(s.label)}</div>
+            <span class="chip cursor-default !text-xs" aria-pressed="false">
+              <span class="h-2 w-2 rounded-full ${s.color}"></span>
+              ${s.value}%
+            </span>
+          </div>
+          <div class="mt-3 h-2 rounded-full bg-white/5 border border-white/10 overflow-hidden">
+            <div class="h-full ${s.color}" style="width:${s.value}%"></div>
+          </div>
+          <div class="mt-2 text-xs text-white/55">Last updated: just now</div>
+        </div>
+      `).join('');
+    }
+
+    // ---------------------------
+    // Comments (localStorage)
+    // ---------------------------
+    const COMMENTS_KEY = 'ccn_comments_v1';
+
+    function loadComments(){
+      try { return JSON.parse(localStorage.getItem(COMMENTS_KEY) || '[]'); }
+      catch { return []; }
+    }
+
+    function saveComments(list){
+      localStorage.setItem(COMMENTS_KEY, JSON.stringify(list));
+    }
+
+    function renderComments(){
+      const list = loadComments();
+      const filter = $('#commentFilter').value;
+      const filtered = filter === 'All' ? list : list.filter(c => c.topic === filter);
+
+      const wrap = $('#commentList');
+      if(filtered.length === 0){
+        wrap.innerHTML = `
+          <div class="glass rounded-2xl border border-white/10 p-4">
+            <div class="font-extrabold">No posts yet</div>
+            <div class="mt-1 text-sm text-white/70">Be the first to share a safe, helpful comment.</div>
+          </div>
+        `;
+        return;
+      }
+
+      wrap.innerHTML = filtered.slice().reverse().map(c => `
+        <div class="glass rounded-2xl border border-white/10 p-4">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="chip cursor-default !text-xs" aria-pressed="false">
+                  <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
+                  ${escapeHtml(c.name)}
+                </span>
+                <span class="chip cursor-default !text-xs" aria-pressed="false">
+                  <span class="h-2 w-2 rounded-full bg-white/60"></span>
+                  ${escapeHtml(c.topic)}
+                </span>
+                <span class="text-xs text-white/55">${formatDate(c.date)}</span>
+              </div>
+            </div>
+            <button class="btn btn-ghost !py-2 !px-3 text-xs" data-delete-comment="${escapeHtml(c.id)}">Delete</button>
+          </div>
+          <p class="mt-3 text-sm text-white/75 leading-relaxed whitespace-pre-wrap">${escapeHtml(c.text)}</p>
+        </div>
+      `).join('');
+
+      $$('[data-delete-comment]').forEach(btn => btn.addEventListener('click', () => {
+        const id = btn.dataset.deleteComment;
+        const next = loadComments().filter(x => x.id !== id);
+        saveComments(next);
+        renderComments();
+        toast({title:'Deleted', message:'Comment removed locally.', tone:'warn'});
+      }));
+    }
+
+    // ---------------------------
+    // Newsletter (localStorage)
+    // ---------------------------
+    const SUB_KEY = 'ccn_newsletter_sub_v1';
+
+    function loadSub(){
+      try { return JSON.parse(localStorage.getItem(SUB_KEY) || 'null'); }
+      catch { return null; }
+    }
+
+    function renderSubCard(){
+      const sub = loadSub();
+      const card = $('#subscriberCard');
+      if(!sub){
+        card.classList.add('hidden');
+        return;
+      }
+      card.classList.remove('hidden');
+      $('#savedEmail').textContent = sub.email;
+      $('#savedTopics').textContent = (sub.topics || []).join(', ') || 'None';
+      $('#savedThreshold').textContent = String(sub.threshold ?? 3);
+    }
+
+    // ---------------------------
+    // Modal
+    // ---------------------------
+    function openModal({kicker, title, body}){
+      $('#modalKicker').textContent = kicker || '';
+      $('#modalTitle').textContent = title || '';
+      $('#modalBody').innerHTML = body || '';
+      $('#modalOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      $('#modalOverlay').classList.add('hidden');
+      $('#modalBody').innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    // ---------------------------
+    // Filters
+    // ---------------------------
+    function resetFilters(){
+      state.selectedCategories.clear();
+      state.search = '';
+      state.page = 1;
+      $('#search').value = '';
+      $$('[data-category]').forEach(ch => ch.setAttribute('aria-pressed', 'false'));
+    }
+
+    function syncCategoryChips(){
+      $$('[data-category]').forEach(ch => {
+        const cat = ch.dataset.category;
+        ch.setAttribute('aria-pressed', state.selectedCategories.has(cat) ? 'true' : 'false');
+      });
+    }
+
+    // ---------------------------
+    // Contrast mode
+    // ---------------------------
+    function setContrast(on){
+      state.contrast = !!on;
+      localStorage.setItem('ccn_contrast', on ? '1' : '0');
+      if(on){
+        document.documentElement.style.setProperty('--line','rgba(255,255,255,.14)');
+        document.documentElement.style.setProperty('--muted','rgba(255,255,255,.82)');
+        document.documentElement.style.setProperty('--muted2','rgba(255,255,255,.68)');
+      }else{
+        document.documentElement.style.setProperty('--line','rgba(255,255,255,.08)');
+        document.documentElement.style.setProperty('--muted','rgba(255,255,255,.72)');
+        document.documentElement.style.setProperty('--muted2','rgba(255,255,255,.55)');
+      }
+      toast({title:'Contrast', message: on ? 'High contrast enabled.' : 'High contrast disabled.', tone:'info'});
+    }
+
+    // ---------------------------
+    // Init + Events
+    // ---------------------------
+    function init(){
+      $('#year').textContent = new Date().getFullYear();
+
+      // load threat
+      const savedThreat = parseInt(localStorage.getItem('ccn_threat_score') || '2', 10);
+      state.threat.score = Number.isFinite(savedThreat) ? Math.min(5, Math.max(1, savedThreat)) : 2;
+      renderThreat();
+
+      // load contrast
+      const savedContrast = localStorage.getItem('ccn_contrast') === '1';
+      setContrast(savedContrast);
+
+      // render
+      renderArticles();
+      renderTutorials();
+      renderSignals();
+      renderComments();
+      renderSubCard();
+
+      // search
+      $('#search').addEventListener('input', (e) => {
+        state.search = e.target.value;
+        state.page = 1;
+        renderArticles();
+      });
+      $('#clearSearch').addEventListener('click', () => {
+        state.search = '';
+        $('#search').value = '';
+        state.page = 1;
+        renderArticles();
+        $('#search').focus();
+      });
+
+      // categories
+      $$('[data-category]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const cat = chip.dataset.category;
+          if(state.selectedCategories.has(cat)) state.selectedCategories.delete(cat);
+          else state.selectedCategories.add(cat);
+          state.page = 1;
+          syncCategoryChips();
+          renderArticles();
+        });
+      });
+
+      $('#resetFilters').addEventListener('click', () => {
+        resetFilters();
+        renderArticles();
+        toast({title:'Filters reset', message:'Showing all categories.', tone:'ok'});
+      });
+
+      // sort
+      $('#sortSelect').addEventListener('change', (e) => {
+        state.sort = e.target.value;
+        state.page = 1;
+        renderArticles();
+      });
+
+      // pagination
+      $('#prevPage').addEventListener('click', () => { state.page = Math.max(1, state.page - 1); renderArticles(); });
+      $('#nextPage').addEventListener('click', () => { state.page = state.page + 1; renderArticles(); });
+
+      // threat controls
+      $('#threatDown').addEventListener('click', () => {
+        state.threat.score = Math.max(1, state.threat.score - 1);
+        renderThreat();
+        toast({title:'Threat level updated', message:`Set to ${scoreToThreat(state.threat.score).label} (${state.threat.score}/5).`, tone:'warn'});
+      });
+      $('#threatUp').addEventListener('click', () => {
+        state.threat.score = Math.min(5, state.threat.score + 1);
+        renderThreat();
+        toast({title:'Threat level updated', message:`Set to ${scoreToThreat(state.threat.score).label} (${state.threat.score}/5).`, tone:'bad'});
+      });
+
+      // signals
+      $('#refreshSignals').addEventListener('click', () => {
+        renderSignals();
+        toast({title:'Signals refreshed', message:'Updated mini threat signals.', tone:'ok'});
+      });
+
+      // comments
+      $('#commentText').addEventListener('input', (e) => {
+        $('#commentCount').textContent = String(e.target.value.length);
+      });
+
+      $('#commentForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = $('#commentName').value.trim();
+        const topic = $('#commentTopic').value;
+        const text = $('#commentText').value.trim();
+
+        if(name.length < 2){
+          toast({title:'Name required', message:'Please enter at least 2 characters.', tone:'warn'});
+          return;
+        }
+        if(text.length < 5){
+          toast({title:'Comment too short', message:'Please add a bit more detail.', tone:'warn'});
+          return;
+        }
+
+        const list = loadComments();
+        list.push({
+          id: 'c_' + Math.random().toString(16).slice(2) + Date.now().toString(16),
+          name, topic, text,
+          date: new Date().toISOString().slice(0,10)
+        });
+        saveComments(list);
+        $('#commentText').value = '';
+        $('#commentCount').textContent = '0';
+        renderComments();
+        toast({title:'Posted', message:'Your comment was added locally.', tone:'ok'});
+      });
+
+      $('#clearComments').addEventListener('click', () => {
+        openModal({
+          kicker: 'Community • Local demo',
+          title: 'Clear all comments?',
+          body: `
+            <p class="text-white/75">This will remove all community posts stored in your browser.</p>
+            <div class="mt-5 flex flex-col sm:flex-row gap-2">
+              <button id="confirmClearComments" class="btn btn-primary w-full">Yes, clear</button>
+              <button id="cancelClearComments" class="btn btn-ghost w-full">Cancel</button>
+            </div>
+          `
+        });
+        $('#confirmClearComments').addEventListener('click', () => {
+          localStorage.removeItem(COMMENTS_KEY);
+          closeModal();
+          renderComments();
+          toast({title:'Cleared', message:'All local comments removed.', tone:'warn'});
+        });
+        $('#cancelClearComments').addEventListener('click', closeModal);
+      });
+
+      $('#commentFilter').addEventListener('change', renderComments);
+
+      // newsletter
+      $('#alertThreshold').addEventListener('input', (e) => {
+        $('#alertThresholdLabel').textContent = e.target.value;
+      });
+
+      $('#newsletterForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = $('#email').value.trim();
+        const topics = $$('input[name="topics"]:checked', $('#newsletterForm')).map(i => i.value);
+        const threshold = parseInt($('#alertThreshold').value, 10);
+
+        if(!topics.length){
+          toast({title:'Pick at least one topic', message:'Select what you want to receive.', tone:'warn'});
+          return;
+        }
+
+        localStorage.setItem(SUB_KEY, JSON.stringify({ email, topics, threshold, savedAt: Date.now() }));
+        renderSubCard();
+        toast({title:'Subscribed', message:'Subscription saved locally (demo).', tone:'ok'});
+      });
+
+      $('#unsubscribeBtn').addEventListener('click', () => {
+        localStorage.removeItem(SUB_KEY);
+        renderSubCard();
+        toast({title:'Removed', message:'Subscription removed locally.', tone:'warn'});
+      });
+
+      $('#sendTestAlert').addEventListener('click', () => {
+        const sub = loadSub();
+        if(!sub){ toast({title:'Not subscribed', message:'Subscribe first.', tone:'warn'}); return; }
+        const score = state.threat.score;
+        const pass = score >= (sub.threshold ?? 3);
+        toast({
+          title: 'Test alert',
+          message: pass
+            ? `Would send: threat score ${score}/5 meets threshold ${sub.threshold}/5.`
+            : `Would not send: threat score ${score}/5 is below threshold ${sub.threshold}/5.`,
+          tone: pass ? 'ok' : 'warn'
+        });
+      });
+
+      // subscribe buttons open newsletter section
+      $('#openSubscribe').addEventListener('click', () => { location.hash = '#newsletter'; $('#email').focus(); });
+      $('#openSubscribe2').addEventListener('click', () => { location.hash = '#newsletter'; $('#email').focus(); });
+
+      // incident report modal
+      $('#openIncident').addEventListener('click', () => {
+        openModal({
+          kicker: 'Tip line • Demo form',
+          title: 'Report a security tip',
+          body: `
+            <form id="tipForm" class="grid gap-3">
+              <div class="glass rounded-2xl border border-white/10 p-4 text-sm text-white/75">
+                Share indicators (domains, IPs, file hashes) and a short description. Do not share personal data.
+              </div>
+              <div>
+                <label class="text-sm font-bold text-white/85" for="tipType">Type</label>
+                <select id="tipType" class="input mt-2">
+                  <option>Phishing</option>
+                  <option>Malware</option>
+                  <option>Data Breach</option>
+                  <option>DDoS</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-sm font-bold text-white/85" for="tipText">Details</label>
+                <textarea id="tipText" class="input mt-2 min-h-[130px]" placeholder="What happened? Where did you see it? Any URLs/domains? (No personal info)"></textarea>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button class="btn btn-primary w-full" type="submit">Submit tip (Demo)</button>
+                <button class="btn btn-ghost w-full" type="button" id="tipCancel">Cancel</button>
+              </div>
+              <div class="text-xs text-white/55">Demo only: does not send anywhere.</div>
+            </form>
+          `
+        });
+
+        $('#tipCancel').addEventListener('click', closeModal);
+        $('#tipForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          closeModal();
+          toast({title:'Tip received', message:'Thanks! (Demo) Add backend submission for production.', tone:'ok'});
+        });
+      });
+
+      // suggest tutorial modal
+      $('#openNewTutorial').addEventListener('click', () => {
+        openModal({
+          kicker: 'Tutorials • Community',
+          title: 'Suggest a tutorial topic',
+          body: `
+            <form id="suggestForm" class="grid gap-3">
+              <div>
+                <label class="text-sm font-bold text-white/85" for="suggTitle">Topic title</label>
+                <input id="suggTitle" class="input mt-2" placeholder="e.g., How to secure a small business Wi‑Fi in BD" required />
+              </div>
+              <div>
+                <label class="text-sm font-bold text-white/85" for="suggAudience">Audience</label>
+                <select id="suggAudience" class="input mt-2">
+                  <option>Beginners</option>
+                  <option>Students</option>
+                  <option>SMBs</option>
+                  <option>IT/Admin</option>
+                  <option>Parents</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-sm font-bold text-white/85" for="suggNotes">Notes</label>
+                <textarea id="suggNotes" class="input mt-2 min-h-[120px]" placeholder="What should it include? Common pitfalls?"></textarea>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button class="btn btn-primary w-full" type="submit">Submit (Demo)</button>
+                <button class="btn btn-ghost w-full" type="button" id="suggCancel">Cancel</button>
+              </div>
+              <div class="text-xs text-white/55">Demo: saved only as a toast.</div>
+            </form>
+          `
+        });
+
+        $('#suggCancel').addEventListener('click', closeModal);
+        $('#suggestForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const title = $('#suggTitle').value.trim();
+          closeModal();
+          toast({title:'Suggestion saved', message:`Thanks! Topic: "${title}"`, tone:'ok'});
+        });
+      });
+
+      // modal close
+      $('#modalClose').addEventListener('click', closeModal);
+      $('#modalOverlay').addEventListener('click', (e) => { if(e.target === $('#modalOverlay')) closeModal(); });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !$('#modalOverlay').classList.contains('hidden')) closeModal(); });
+
+      // mobile menu
+      $('#mobileMenuBtn').addEventListener('click', () => {
+        $('#mobileMenu').classList.toggle('hidden');
+      });
+      $$('[data-close-mobile]').forEach(a => a.addEventListener('click', () => $('#mobileMenu').classList.add('hidden')));
+
+      // tips panel
+      const openTips = () => $('#tipsPanel').setAttribute('data-open','true');
+      const closeTips = () => $('#tipsPanel').setAttribute('data-open','false');
+      $('#tipsBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = $('#tipsPanel').getAttribute('data-open') === 'true';
+        $('#tipsPanel').setAttribute('data-open', open ? 'false' : 'true');
+      });
+      $('#tipsClose').addEventListener('click', (e) => { e.stopPropagation(); closeTips(); });
+      document.addEventListener('click', () => closeTips());
+
+      // keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        const tag = (document.activeElement?.tagName || '').toLowerCase();
+        const isTyping = tag === 'input' || tag === 'textarea' || document.activeElement?.isContentEditable;
+        if(e.key === '/' && !isTyping){
+          e.preventDefault();
+          $('#search').focus();
+          return;
+        }
+        if(isTyping) return;
+
+        if(e.key.toLowerCase() === 'n'){ location.hash = '#news'; }
+        if(e.key.toLowerCase() === 't'){ location.hash = '#tutorials'; }
+        if(e.key.toLowerCase() === 'c'){ location.hash = '#community'; }
+      });
+
+      // theme / contrast
+      $('#themeBtn').addEventListener('click', () => setContrast(!state.contrast));
+
+      // back to top
+      $('#backToTop').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+      // open subscribe on hero buttons
+      $('#openSubscribe2')?.addEventListener('click', () => { location.hash = '#newsletter'; });
+
+      // clear search via chip in empty state uses dynamic listeners in renderArticles
+
+      // subscribe open via header button handled above
+
+      // misc
+      $('#openSubscribe2')?.addEventListener('click', () => { location.hash='#newsletter'; });
+
+      // ensure category chips reflect state
+      syncCategoryChips();
+
+      // initialize comment count
+      $('#commentCount').textContent = String($('#commentText').value.length);
+
+      // test: slight nudge
+      setTimeout(() => {
+        toast({title:'Welcome', message:'Use search and categories to filter Bangladesh cyber news.', tone:'info'});
+      }, 600);
+    }
+
+    init();
+  </script>
+</body>
+</html>
